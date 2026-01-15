@@ -1,0 +1,155 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMUXU+PhOBiRC9tuzcvW/WA",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Sidra-009/100-days-of-machine-learning/blob/main/ai_lab\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "TGwrktYa2F7T",
+        "outputId": "7b0aa19b-ac06-42b2-af42-03e8f3b812b6"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "/usr/local/lib/python3.12/dist-packages/keras/src/layers/core/dense.py:93: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.\n",
+            "  super().__init__(activity_regularizer=activity_regularizer, **kwargs)\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Accuracy: 0.7666666507720947\n"
+          ]
+        }
+      ],
+      "source": [
+        "import tensorflow as tf\n",
+        "from tensorflow.keras.models import Sequential\n",
+        "from tensorflow.keras.layers import Dense\n",
+        "from sklearn.datasets import load_iris\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.preprocessing import OneHotEncoder\n",
+        "import numpy as np\n",
+        "data = load_iris()\n",
+        "X = data.data\n",
+        "y = data.target.reshape(-1, 1)\n",
+        "encoder = OneHotEncoder()\n",
+        "y = encoder.fit_transform(y).toarray()\n",
+        "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n",
+        "model = Sequential()\n",
+        "model.add(Dense(10, activation='relu', input_shape=(4,)))\n",
+        "model.add(Dense(3, activation='softmax'))\n",
+        "model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])\n",
+        "\n",
+        "model.fit(X_train, y_train, epochs=50, verbose=0)\n",
+        "loss, accuracy = model.evaluate(X_test, y_test, verbose=0)\n",
+        "print(\"Accuracy:\", accuracy)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Model with Two Hidden Layers\n",
+        "model = Sequential()\n",
+        "model.add(Dense(12, activation='relu', input_shape=(4,)))\n",
+        "model.add(Dense(8, activation='relu'))\n",
+        "model.add(Dense(3, activation='softmax'))\n",
+        "\n",
+        "model.compile( optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])\n",
+        "model.fit(X_train, y_train, epochs=50, verbose=0)\n",
+        "loss, accuracy = model.evaluate(X_test, y_test, verbose=0)\n",
+        "print(\"Accuracy:\", accuracy)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "GxZdAjjW2mpX",
+        "outputId": "046cc0f3-ded5-4793-f35a-a77e7dbc5588"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Accuracy: 1.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Model with Three Hidden Layers\n",
+        "model = Sequential()\n",
+        "model.add(Dense(16, activation='relu', input_shape=(4,)))\n",
+        "model.add(Dense(12, activation='relu'))\n",
+        "model.add(Dense(8, activation='relu'))\n",
+        "model.add(Dense(3, activation='softmax'))\n",
+        "\n",
+        "model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])\n",
+        "model.fit(X_train, y_train, epochs=50, verbose=0)\n",
+        "loss, accuracy = model.evaluate(X_test, y_test, verbose=0)\n",
+        "print(\"Accuracy:\", accuracy)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "giKOtOP855i9",
+        "outputId": "b9f60423-3abe-4b1b-f48d-82a6619fad79"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Accuracy: 0.9666666388511658\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "BtVb_CNU6Eri"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
